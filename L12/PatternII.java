@@ -1,5 +1,6 @@
 public class PatternII {
 
+    //Inverted And Rotated HalfPyramid
     public static void InvertedAndRotatedHalfPyramid(int row, int column){
         int blank = column - 1;
         for(int i = 0; i < row; i++){

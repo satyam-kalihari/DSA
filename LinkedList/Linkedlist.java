@@ -115,9 +115,9 @@ public class Linkedlist {
         ll.addLast(1);
         ll.addLast(2);
         ll.addLast(3);
-        ll.addLast(3);
-        ll.addLast(2);
-        ll.addLast(1);
+        ll.addLast(4);
+        ll.addLast(5);
+        ll.addLast(6);
 
         ll.printLinkedList();
         if (ll.checkPalindrome()) {

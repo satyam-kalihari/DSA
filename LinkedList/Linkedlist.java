@@ -110,21 +110,36 @@ public class Linkedlist {
         System.out.println("null");
     }
 
+    //Detect Loop
+    public static boolean isLoop(){
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         Linkedlist ll = new Linkedlist();
         ll.addLast(1);
         ll.addLast(2);
         ll.addLast(3);
         ll.addLast(4);
-        ll.addLast(5);
-        ll.addLast(6);
+        Node tempNode = head;
+        tempNode.next.next.next = tempNode.next;
 
-        ll.printLinkedList();
-        if (ll.checkPalindrome()) {
-            System.out.println("It is palindrome");
-        }else{
-            System.out.println("Not a palindrome");
-        }
+        // ll.printLinkedList();
+        // if (ll.checkPalindrome()) {
+        //     System.out.println("It is palindrome");
+        // }else{
+        //     System.out.println("Not a palindrome");
+        // }
+        System.out.println(isLoop());
     }
 
 

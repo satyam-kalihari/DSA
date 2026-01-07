@@ -124,6 +124,39 @@ public class Linkedlist {
         return false;
     }
 
+    //removing loop
+    public static void removeLoop(){
+
+        //check if there is a loop
+        Node slow = head;
+        Node fast = head;
+        boolean cycle = false;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                cycle = true;
+                break;
+            }
+        }
+
+        if (!cycle) {
+            return;
+        }
+
+        //find the meeting point
+        slow = head;
+        Node prev = null;
+        while (slow != fast) {
+            slow = slow.next;
+            prev = fast;
+            fast = fast.next;
+        }
+
+        //break the loop
+        prev.next = null;
+    }
+
     public static void main(String[] args) {
         Linkedlist ll = new Linkedlist();
         ll.addLast(1);
@@ -131,7 +164,7 @@ public class Linkedlist {
         ll.addLast(3);
         ll.addLast(4);
         Node tempNode = head;
-        tempNode.next.next.next = tempNode.next;
+        tempNode.next.next.next.next = tempNode.next;
 
         // ll.printLinkedList();
         // if (ll.checkPalindrome()) {
@@ -140,6 +173,9 @@ public class Linkedlist {
         //     System.out.println("Not a palindrome");
         // }
         System.out.println(isLoop());
+        removeLoop();
+        System.out.println(isLoop());
+        ll.printLinkedList();
     }
 
 

@@ -157,14 +157,77 @@ public class Linkedlist {
         prev.next = null;
     }
 
+    //fetMid
+    public static Node getMid(Node head){
+        Node slow = head;
+        Node fast = head.next;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    //merge node
+    private Node mergeNode(Node leftHead, Node rightHead){
+        Node mergeNode = new Node(-1);
+        Node temp = mergeNode;
+
+        while (leftHead != null && rightHead != null) {
+            if (leftHead.data < rightHead.data) {
+                temp.next = leftHead;
+                leftHead = leftHead.next;
+                temp = temp.next;
+            }else{
+                temp.next = rightHead;
+                rightHead = rightHead.next;
+                temp = temp.next;
+            }
+        }
+
+        while (leftHead != null) {
+            temp.next = leftHead;
+            leftHead = leftHead.next;
+            temp = temp.next;
+        }
+        while (rightHead != null) {
+            temp.next = rightHead;
+            rightHead = rightHead.next;
+            temp = temp.next;
+        }
+
+        return mergeNode.next;
+    }
+
+    //Merge sort
+    public Node mergeSort(Node head){
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        //find mid
+        Node midNode = getMid(head);
+
+        //divided
+        Node rightHead = midNode.next;
+        midNode.next = null;
+        Node newLeft = mergeSort(head);
+        Node newRight = mergeSort(rightHead);
+
+        return mergeNode(newLeft, newRight);
+    }
     public static void main(String[] args) {
         Linkedlist ll = new Linkedlist();
+        ll.addLast(5);
         ll.addLast(1);
-        ll.addLast(2);
         ll.addLast(3);
+        ll.addLast(6);
         ll.addLast(4);
-        Node tempNode = head;
-        tempNode.next.next.next.next = tempNode.next;
+        ll.addLast(2);
+        // Node tempNode = head;
+        // tempNode.next.next.next.next = tempNode.next;
 
         // ll.printLinkedList();
         // if (ll.checkPalindrome()) {
@@ -172,9 +235,11 @@ public class Linkedlist {
         // }else{
         //     System.out.println("Not a palindrome");
         // }
-        System.out.println(isLoop());
-        removeLoop();
-        System.out.println(isLoop());
+        // System.out.println(isLoop());
+        // removeLoop();
+        // System.out.println(isLoop());
+        ll.printLinkedList();
+        head = ll.mergeSort(head);
         ll.printLinkedList();
     }
 

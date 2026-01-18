@@ -15,19 +15,9 @@ public class FirstNonRepeating {
             char curr = str.charAt(i);
             freq[curr - 'a']++;
             q.add(curr);
-            boolean rep = true;
 
-            while (rep) {
-                if (!q.isEmpty()) {
-                    if (freq[q.peek()-'a'] <= 1) {
-                        rep = false;
-                    }else{
-                        q.remove();
-                    }  
-                }
-                else {
-                    rep = false;
-                } 
+            while (!q.isEmpty() && freq[q.peek() - 'a'] > 1) {
+                q.remove();
             }
             if (q.isEmpty()) {
                 System.err.println(-1);

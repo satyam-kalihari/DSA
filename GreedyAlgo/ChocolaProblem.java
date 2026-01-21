@@ -11,7 +11,6 @@ import java.util.Collections;
 public class ChocolaProblem {
     
     public static void main(String[] args) {
-        int n = 4; int m = 6;
         Integer[] hCost = {4, 2, 1};
         Integer[] vCost = {2, 1, 3, 1, 4};
 

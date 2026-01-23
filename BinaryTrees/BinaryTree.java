@@ -92,16 +92,46 @@ public class BinaryTree {
         return Math.max(lHeight, rHeight) + 1;
     }
 
+    public static class Info {
+        
+        int dia;
+        int ht;
+
+        public Info(int dia, int ht){
+            this.dia = dia;
+            this.ht = ht;
+        }   
+    }
+
+    public static Info diameter(Node root){
+
+        if (root == null) {
+            return new Info(0, 0);
+        }
+
+        Info leftInfo = diameter(root.lNode);
+        Info rightInfo = diameter(root.rNode);
+        int selfDiameter = Math.max(Math.max(leftInfo.dia, rightInfo.dia), leftInfo.ht + rightInfo.ht + 1);
+
+        int ht = Math.max(leftInfo.ht, rightInfo.ht) + 1;
+
+        return new Info(selfDiameter, ht);
+        
+    }
+
     public static void main(String[] args) {
         int[] preorder = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
 
         // BinaryTreeBuild tree = new BinaryTreeBuild();
         Node root = BinaryTreeBuild.buildTree(preorder);
-        printTree(root);
-        System.out.println();
-        levelOrder(root);
-        int treeHeight = heightOfATree(root);
-        System.out.println(treeHeight);
+        // printTree(root);
+        // System.out.println();
+        // levelOrder(root);
+        // int treeHeight = heightOfATree(root);
+        // System.out.println(treeHeight);
+
+        Info diaNode = diameter(root);
+        System.out.println(diaNode.dia);
     
     }
 }

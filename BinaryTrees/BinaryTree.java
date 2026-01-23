@@ -119,19 +119,59 @@ public class BinaryTree {
         
     }
 
+    public static boolean isIdentical(Node rootNode, Node subRootNode){
+
+        if (rootNode == null && subRootNode == null) {
+            return true;
+        }
+        else if (rootNode == null || subRootNode == null || rootNode.data != subRootNode.data) {
+            return false;
+        }
+
+        if (!isIdentical(rootNode.lNode, subRootNode.lNode)) {
+            return false;
+        }
+        if (!isIdentical(rootNode.rNode, subRootNode.rNode)) {
+            return false;
+        }
+
+        return  true;
+    }
+
+    public static boolean findSubTree(Node rootNode, Node subRootNode){
+
+        if (rootNode == null) {
+            return false;
+        }
+
+        if (rootNode.data == subRootNode.data) {
+            if (isIdentical(rootNode, subRootNode)) {
+                return true;
+            }
+        }
+
+        return findSubTree(rootNode.lNode, subRootNode) || findSubTree(rootNode.rNode, subRootNode);
+    }
+
     public static void main(String[] args) {
         int[] preorder = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
 
         // BinaryTreeBuild tree = new BinaryTreeBuild();
         Node root = BinaryTreeBuild.buildTree(preorder);
+        Node subTree = new Node(2);
+        subTree.lNode = new Node(4);
+        subTree.rNode = new Node(5);
+        subTree.lNode.lNode = new Node(6);
         // printTree(root);
         // System.out.println();
         // levelOrder(root);
         // int treeHeight = heightOfATree(root);
         // System.out.println(treeHeight);
 
-        Info diaNode = diameter(root);
-        System.out.println(diaNode.dia);
+        // Info diaNode = diameter(root);
+        // System.out.println(diaNode.dia);
+
+        System.out.println(findSubTree(root, subTree));
     
     }
 }

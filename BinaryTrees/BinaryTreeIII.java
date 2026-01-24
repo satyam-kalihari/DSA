@@ -130,7 +130,25 @@ public class BinaryTreeIII {
         System.out.println(leftDis+rightDis);
     }
 
-    public static void kThAncestor(){
+    public static int kThAncestor(Node root, int n, int k){
+        if (root == null) {
+            return -1;
+        }
+        if (root.data == n) {
+            return 0;
+        }
+
+        int leftAns = kThAncestor(root.lNode, n, k);
+        int rightAns = kThAncestor(root.rNode, n, k);
+
+        if (leftAns == -1 && rightAns == -1) {
+            return -1;
+        }
+        int max = Math.max(leftAns, rightAns);
+        if (max+1 == k) {
+            System.out.println(root.data);
+        }
+        return max+1;
 
     }
 
@@ -142,6 +160,8 @@ public class BinaryTreeIII {
         // lowestCommonAncestor(root, 4, 5);
         // System.out.println(lca2(root, 4, 5).data);
 
-        minDistance(root, 4, 5);
+        // minDistance(root, 4, 5);
+
+        kThAncestor(root, 6, 2);
     }
 }

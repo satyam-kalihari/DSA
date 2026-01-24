@@ -97,6 +97,39 @@ public class BinaryTreeIII {
         return root;
     }
 
+    public static int lcaDis(Node root, int n){
+        if (root == null) {
+            return -1;
+        }
+        if (root.data == n) {
+            return 0;
+        }
+
+        int leftDis = lcaDis(root.lNode, n);
+        int rightDis = lcaDis(root.rNode, n);
+        if (leftDis == -1 && rightDis == -1) {
+            return -1;
+        }
+
+        else if (leftDis == -1) {
+            return rightDis+1;
+        }
+        else {
+            return leftDis+1;
+        }
+
+
+    }
+
+    public static void minDistance(Node root, int n1, int n2){
+
+        Node lca = lca2(root, n1, n2);
+        int leftDis = lcaDis(lca, n1);
+        int rightDis = lcaDis(lca, n2);
+
+        System.out.println(leftDis+rightDis);
+    }
+
     public static void kThAncestor(){
 
     }
@@ -106,7 +139,9 @@ public class BinaryTreeIII {
 
         Node root = BinaryTreeBuild.buildTree(preorder);
 
-        lowestCommonAncestor(root, 4, 5);
-        System.out.println(lca2(root, 4, 5).data);
+        // lowestCommonAncestor(root, 4, 5);
+        // System.out.println(lca2(root, 4, 5).data);
+
+        minDistance(root, 4, 5);
     }
 }

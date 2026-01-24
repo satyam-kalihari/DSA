@@ -152,8 +152,37 @@ public class BinaryTreeIII {
 
     }
 
+    public static void printTree(Node rootNode){
+
+        System.out.print(rootNode.data + ", ");
+        if (rootNode.lNode != null) {
+            printTree(rootNode.lNode); 
+        }
+        else System.out.print(-1 + ", ");
+        if (rootNode.rNode != null) {
+            printTree(rootNode.rNode); 
+        }
+        else System.out.print(-1 + ", ");
+    }
+
+    public static int sumTree(Node root){
+
+        if (root == null) {
+            return 0;
+        }
+
+        int leftSum = sumTree(root.lNode);
+        int rigthSum = sumTree(root.rNode);
+        int temp = root.data;
+        root.data = leftSum+rigthSum;
+
+        return leftSum+rigthSum+temp;
+
+        
+    }
+
     public static void main(String[] args) {
-        int[] preorder = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
+        int[] preorder = {1, 2, 4, -1, -1, 5, -1, -1, 3, 6, -1, -1, 7, -1, -1};
 
         Node root = BinaryTreeBuild.buildTree(preorder);
 
@@ -162,6 +191,9 @@ public class BinaryTreeIII {
 
         // minDistance(root, 4, 5);
 
-        kThAncestor(root, 6, 2);
+        // kThAncestor(root, 6, 2);
+
+        sumTree(root);
+        printTree(root);
     }
 }

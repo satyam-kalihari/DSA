@@ -1,0 +1,88 @@
+package BinaryTrees;
+
+import java.util.ArrayList;
+
+public class BinaryTreeIII {
+    
+    static class Node {
+        
+        int data;
+        Node lNode;
+        Node rNode;
+
+        public Node(int data){
+            this.data = data;
+            this.lNode = null;
+            this.rNode = null;
+        }
+        
+    }
+    
+    static class BinaryTreeBuild{
+        static int idx = -1;
+        public static Node buildTree(int nodes[]){
+            idx++;
+            if (nodes[idx] == -1) {
+                return null;
+            }
+            Node newNode = new Node(nodes[idx]);
+            newNode.lNode = buildTree(nodes);
+            newNode.rNode = buildTree(nodes);
+
+            return newNode;
+        }
+    }
+
+    public static boolean getPath(Node root, int node, ArrayList<Node> path){
+
+        if (root == null) {
+            return false;
+        }
+
+        path.add(root);
+        if (root.data == node) {
+            return true;
+        }
+
+        boolean ansLeft = getPath(root.lNode, node, path);
+        boolean ansRight = getPath(root.rNode, node, path);
+
+        if (ansLeft || ansRight) {
+            return true;
+        }
+
+        path.remove(path.size()-1);
+        return false;
+    }
+
+    public static void lowestCommonAncestor(Node root, int node1, int node2){
+
+        ArrayList<Node> path1 = new ArrayList<>();
+        ArrayList<Node> path2 = new ArrayList<>();
+
+        getPath(root, node1, path1);
+        getPath(root, node2, path2);
+
+        int i = 0;
+        for (; i < path1.size() && i<path2.size(); i++) {
+            if (path1.get(i) != path2.get(i)) {
+                break;
+            }
+        }
+
+        System.out.println(path1.get(i-1).data);
+
+    }
+
+    public static void kThAncestor(){
+
+    }
+
+    public static void main(String[] args) {
+        int[] preorder = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
+
+        Node root = BinaryTreeBuild.buildTree(preorder);
+
+        lowestCommonAncestor(root, 4, 6);
+    }
+}

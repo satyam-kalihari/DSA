@@ -121,8 +121,22 @@ public class BST {
         root.right = temp;
     }
 
+    public static boolean validate(Node root, Node min, Node max){
+        if (root == null) {
+            return true;
+        }
+        if (min != null && root.data <= min.data) {
+            return false;
+        }
+        else if (max != null && root.data >= max.data) {
+            return false;
+        }
+
+        return validate(root.left, min, root) && validate(root.right, root, max);
+    }
+
     public static void main(String[] args) {
-        int[] arr = {5, 8, 2, 9, 3, 4, 10, 6, 1, 7};
+        int[] arr = {5, 8, 2, 9, 3, 4, 10, 6, 1, 7, 10};
         Node root = null;
 
         for (int i = 0; i < arr.length; i++) {
@@ -131,16 +145,23 @@ public class BST {
 
         // printInorderBST(root);
         // delete(root, 10);
-        printInorderBST(root);
+        // printInorderBST(root);
 
         // printRange(root, 6, 9);
 
         // ArrayList<Integer> path = new ArrayList<>();
         // rootToLeaf(root, path);
 
-        miror(root);
-        System.out.println();
-        printInorderBST(root);
+        // miror(root);
+        // System.out.println();
+        // printInorderBST(root);
+
+        if (validate(root, null, null)) {
+            System.out.println("It's a BST");
+        }
+        else{
+            System.out.println("Not a BST");
+        }
 
     }
 }

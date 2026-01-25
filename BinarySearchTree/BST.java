@@ -70,6 +70,24 @@ public class BST {
         return root;
     }
 
+    public static void printRange(Node root, int k1, int k2){
+        if(root == null){
+            return;
+        }
+
+        if (root.data >= k1 && root.data <= k2) {
+            printRange(root.left, k1, k2);
+            System.out.print(root.data + " ");
+            printRange(root.right, k1, k2);
+        }
+        else if (root.data < k1) {
+            printRange(root.right, k1, k2);
+        }
+        else if(root.data > k2){
+            printRange(root.left, k1, k2);
+        }
+    }
+
     public static void main(String[] args) {
         int[] arr = {5, 8, 2, 9, 3, 4, 10, 6, 1, 7};
         Node root = null;
@@ -78,9 +96,11 @@ public class BST {
             root = buildBST(root, arr[i]);
         }
 
-        printInorderBST(root);
-        delete(root, 10);
-        printInorderBST(root);
+        // printInorderBST(root);
+        // delete(root, 10);
+        // printInorderBST(root);
+
+        printRange(root, 6, 9);
 
     }
 }

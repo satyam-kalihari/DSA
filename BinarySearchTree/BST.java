@@ -1,5 +1,7 @@
 package BinarySearchTree;
 
+import java.util.ArrayList;
+
 public class BST {
     
     public static class Node {  
@@ -88,6 +90,37 @@ public class BST {
         }
     }
 
+    public static void rootToLeaf(Node root, ArrayList<Integer> path){
+        if (root.left == null && root.right == null) {
+            path.add(root.data);
+            System.out.println(path);
+            path.remove(path.size()-1);
+            return;
+        }
+
+        path.add(root.data);
+        if (root.left != null) {
+            rootToLeaf(root.left, path);
+        }
+        if (root.right != null) {
+            rootToLeaf(root.right, path);
+        }
+        path.remove(path.size()-1);
+    }
+
+    public static void miror(Node root){
+        if (root == null) {
+            return;
+        }
+
+        miror(root.left);
+        miror(root.right);
+
+        Node temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+    }
+
     public static void main(String[] args) {
         int[] arr = {5, 8, 2, 9, 3, 4, 10, 6, 1, 7};
         Node root = null;
@@ -98,9 +131,16 @@ public class BST {
 
         // printInorderBST(root);
         // delete(root, 10);
-        // printInorderBST(root);
+        printInorderBST(root);
 
-        printRange(root, 6, 9);
+        // printRange(root, 6, 9);
+
+        // ArrayList<Integer> path = new ArrayList<>();
+        // rootToLeaf(root, path);
+
+        miror(root);
+        System.out.println();
+        printInorderBST(root);
 
     }
 }

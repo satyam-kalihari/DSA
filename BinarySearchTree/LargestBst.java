@@ -62,7 +62,7 @@ public class LargestBst {
         root.right.right.left = new Node( 65);
         root.right.right.right = new Node( 80);
 
-        Info info = sizeOfLargestBst(root);
+        sizeOfLargestBst(root);
         System.out.println(maxBST);
     }
 }

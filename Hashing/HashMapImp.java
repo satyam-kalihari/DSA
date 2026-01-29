@@ -1,6 +1,7 @@
 package Hashing;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class HashMapImp {
     public static void main(String[] args) {
@@ -12,9 +13,14 @@ public class HashMapImp {
         hm.put("China", 324);
         System.out.println(hm);
         //O(1)
-        int population = hm.get("India");
-        System.out.println(population);
-        System.out.println(hm.containsKey("Russia"));
-        System.out.println(hm.remove("China"));
+        // int population = hm.get("India");
+        // hm.containsKey("Russia");
+        // hm.remove("China");
+
+        //iteration
+        Set<String> keys = hm.keySet();
+        for (String string : keys) {
+            System.out.println(string + ":" + hm.get(string));
+        }
     }
 }

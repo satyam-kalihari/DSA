@@ -1,5 +1,6 @@
 package Hashing;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class HashMapCode {
@@ -109,6 +110,18 @@ public class HashMapCode {
             }
             return null;
         }
+
+        public ArrayList<K> keySet(){
+            ArrayList<K> keys = new ArrayList<>();
+
+            for (int i = 0; i < buckets.length; i++) {
+                LinkedList<Node> ll = buckets[i];
+                for (int j = 0; j < ll.size(); j++) {
+                    keys.add(ll.get(j).key);
+                }
+            }
+            return keys;
+        }
     }
 
     public static void main(String[] args) {
@@ -117,6 +130,6 @@ public class HashMapCode {
         hm.put("Usa", 304);
         hm.put("China", 324);
 
-        System.out.println(hm.remove("China"));
+        System.out.println(hm.keySet());
     }
 }

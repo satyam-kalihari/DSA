@@ -13,14 +13,70 @@ public class HashMapCode {
             }
         }
 
-        private int size;
+        private int n = 0;//size of HashMap(total number of nodes)
+        private int N;
         private LinkedList<Node> buckets[];
 
+        @SuppressWarnings("unchecked")
         public HashMap(){
-            this.size = 0;
+            this.N = 4;
             this.buckets = new LinkedList[4];
             for (int i = 0; i < buckets.length; i++) {
                 this.buckets[i] = new LinkedList<>();
+            }
+        }
+
+        public int hashFun(K key){
+            int bi = key.hashCode();//can return 1234/-1234
+            return Math.abs(bi) % N;//size of array of LL is 4
+        }
+
+        public int searchInLL(K key, int bi){
+            LinkedList<Node> ll = buckets[bi];
+            int di = 0;
+            for (int i = 0; i < ll.size(); i++) {
+                Node node = ll.get(i);
+                if (node.key == key) {
+                    return di;
+                }
+                di++;
+            }
+            return -1;
+        }
+
+        @SuppressWarnings("unchecked")
+        public void rehash(){
+            LinkedList<Node> oldBucket[] = buckets;
+            buckets = new LinkedList[N*2];
+            for (int i = 0; i < buckets.length; i++) {
+                buckets[i] = new LinkedList<>();
+            }
+
+            for (int i = 0; i < oldBucket.length; i++) {
+                LinkedList<Node> ll = oldBucket[i];
+                for (int j = 0; j < ll.size(); j++) {
+                    Node node = ll.get(j);
+                    put(node.key, node.value);
+                }
+            }
+        }
+
+        public void put(K key, V value){
+            int bucketIdx = hashFun(key);
+            int dataIdx = searchInLL(key, bucketIdx);//will return a valid idx or -1 if not present
+
+            if (dataIdx != -1) {//key already there
+                Node node = buckets[bucketIdx].get(dataIdx);
+                node.value = value;
+            }
+            else{
+                buckets[bucketIdx].add(new Node(key, value));
+                n++;
+            }
+
+            double lmbda = (double)n/N;
+            if (lmbda > 2) {
+                rehash();
             }
         }
     }

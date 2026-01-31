@@ -1,26 +1,41 @@
 package Hashing;
 
 import java.util.HashMap;
-import java.util.Set;
 
 public class HashMapImp {
-    public static void main(String[] args) {
-        HashMap<String, Integer> hm = new HashMap<>();
+    public static boolean isAnangram(String s1, String s2){
 
-        //O(1)
-        hm.put("India", 100);
-        hm.put("Usa", 304);
-        hm.put("China", 324);
-        System.out.println(hm);
-        //O(1)
-        // int population = hm.get("India");
-        // hm.containsKey("Russia");
-        // hm.remove("China");
-
-        //iteration
-        Set<String> keys = hm.keySet();
-        for (String string : keys) {
-            System.out.println(string + ":" + hm.get(string));
+        if (s1.length() != s2.length()) {
+            return false;
         }
+
+        HashMap<Character, Integer> hm = new HashMap<>();
+        for (int i = 0; i < s1.length(); i++) {
+            char ch = s1.charAt(i);
+            hm.put(ch, hm.getOrDefault(ch, 0) + 1);
+        }
+
+        for (int i = 0; i < s2.length(); i++) {
+            char ch = s2.charAt(i);
+            if (hm.containsKey(ch)) {
+                hm.put(ch, hm.get(ch) - 1);
+                if (hm.get(ch) == 0) {
+                    hm.remove(ch);
+                }
+            }
+        }
+
+        if (hm.isEmpty()) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public static void main(String[] args) {
+        String s1 = "keen";
+        String s2 = "eenk";
+
+        System.out.println(isAnangram(s1, s2));
     }
 }

@@ -19,10 +19,23 @@ public class TriesImp {
             int idx = word.charAt(i)-'a';
             if (curr.children[idx] == null) {
                 curr.children[idx] = new Node();
-                curr = curr.children[idx];
             }
+            curr = curr.children[idx];
         }
         curr.endOfWord = true;
+    }
+
+    public static boolean search(String word){
+        Node curr = root;
+        for (int i = 0; i < word.length(); i++) {
+            int idx = word.charAt(i)-'a';
+            if (curr.children[idx] == null) {
+                return false;
+            }
+            curr = curr.children[idx];
+
+        }
+        return curr.endOfWord == true;
     }
 
     public static void main(String[] args) {
@@ -30,5 +43,7 @@ public class TriesImp {
         for (String string : str) {
             insert(string);
         }
+
+        System.out.println(search("their"));
     }
 }

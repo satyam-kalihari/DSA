@@ -38,12 +38,25 @@ public class TriesImp {
         return curr.endOfWord == true;
     }
 
+    public static boolean wordBreakProblem(String key){
+        if (key.length() == 0) {
+            return true;
+        }
+        for (int i = 1; i <= key.length(); i++) {
+            if (search(key.substring(0, i)) && wordBreakProblem(key.substring(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         String[] str = {"the", "a", "there", "their", "any", "three"};
         for (String string : str) {
             insert(string);
         }
 
-        System.out.println(search("their"));
+        // System.out.println(search("a"));
+        System.out.println(wordBreakProblem("thereaany"));
     }
 }

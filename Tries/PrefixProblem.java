@@ -46,11 +46,25 @@ public class PrefixProblem {
             System.out.println(searchPrifix(word));
         }
     }
-    public static void main(String[] args) {
-        String[] str = {"zebra", "dog", "duck", "dove"};
-        for (String s : str) {
-            insert(s);
+    public static boolean startWitth(String prefix){
+        Node curr =root;
+
+        for (int i = 0; i < prefix.length(); i++) {
+            int idx = prefix.charAt(i) - 'a';
+            if(curr.children[idx] == null){
+                return false;
+            }
+            curr = curr.children[idx];
         }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        // String[] str = {"zebra", "dog", "duck", "dove"};
+        String prefic[] = {"apple", "app", "mango", "me", "woman"};
+        String prefix1 = "aoo";
+        String prefix = "moon";
+        
         printPrifix(str);
     }
 }

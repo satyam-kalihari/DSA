@@ -70,18 +70,33 @@ public class PrefixProblem {
         }
         return count+1;
     }
+    public static String ans = "";
+    public static void longestWord(Node root, StringBuilder temp){
+        for (int i = 0; i < 26; i++) {
+            if (root.children[i] != null && root.children[i].eow == true) {
+                temp.append((char)('a'+i));
+                if (temp.length() > ans.length()) {
+                    ans = temp.toString();
+                }
+                longestWord(root.children[i], temp);
+                temp.deleteCharAt(temp.length()-1);
+            }
+        }
+    }
 
     public static void main(String[] args) {
         // String[] str = {"zebra", "dog", "duck", "dove"};
         // String prefic[] = {"apple", "app", "mango", "me", "woman"};
-        String str = "ababa";
+        String[] words = {"a", "banana", "app", "appl", "ap", "apply", "apple"};
+        // String str = "ababa";
 
         // creating suffix trie tree
-        for (int i = 0; i < str.length(); i++) {
-            insert(str.substring(i));
+        for (int i = 0; i < words.length; i++) {
+            insert(words[i]);
         }
-
         
-        System.out.println(countPrifix(root));;
+        StringBuilder temp = new StringBuilder();
+        longestWord(root, temp);
+        System.out.println(ans);
     }
 }

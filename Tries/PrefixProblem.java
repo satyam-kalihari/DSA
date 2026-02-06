@@ -58,16 +58,30 @@ public class PrefixProblem {
         }
         return true;
     }
+    public static int countPrifix(Node root){
+        if (root == null) {
+            return 0;
+        }
+        int count = 0;
+        for(int i = 0; i < 26; i++){
+            if (root.children[i] != null) {
+                count += countPrifix(root.children[i]);
+            }
+        }
+        return count+1;
+    }
 
     public static void main(String[] args) {
         // String[] str = {"zebra", "dog", "duck", "dove"};
-        String prefic[] = {"apple", "app", "mango", "me", "woman"};
-        for (String string : prefic) {
-            insert(string);
+        // String prefic[] = {"apple", "app", "mango", "me", "woman"};
+        String str = "ababa";
+
+        // creating suffix trie tree
+        for (int i = 0; i < str.length(); i++) {
+            insert(str.substring(i));
         }
-        String prefix1 = "app";
-        String prefix2 = "moon";
+
         
-        System.out.println(startWitth(prefix2));;
+        System.out.println(countPrifix(root));;
     }
 }

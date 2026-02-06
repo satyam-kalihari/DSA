@@ -62,9 +62,12 @@ public class PrefixProblem {
     public static void main(String[] args) {
         // String[] str = {"zebra", "dog", "duck", "dove"};
         String prefic[] = {"apple", "app", "mango", "me", "woman"};
-        String prefix1 = "aoo";
-        String prefix = "moon";
+        for (String string : prefic) {
+            insert(string);
+        }
+        String prefix1 = "app";
+        String prefix2 = "moon";
         
-        printPrifix(str);
+        System.out.println(startWitth(prefix2));;
     }
 }

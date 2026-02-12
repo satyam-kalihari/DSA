@@ -1,6 +1,8 @@
 package Graphs;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class LectureI {
     public static class Edge {
@@ -11,6 +13,24 @@ public class LectureI {
             this.src = src;
             this.dest = dest;
             this.wt = wt;
+        }
+    }
+
+    public static void bfs(ArrayList<Edge>[] graph){
+        Queue<Integer> q = new LinkedList<>();
+        boolean[] vis = new boolean[graph.length];
+        q.add(0);
+
+        while (!q.isEmpty()) {
+            int curr = q.remove();
+            if (!vis[curr]) {
+                System.out.print(curr + " ");
+                vis[curr] = true;
+                for (int i = 0; i < graph[curr].size(); i++) {
+                    Edge e = graph[curr].get(i);
+                    q.add(e.dest);
+                }
+            }
         }
     }
 
@@ -43,8 +63,9 @@ public class LectureI {
         graph[4].add(new Edge(4, 2, 2));
 
         //neighbours of 2
-        for (Edge nei : graph[2]) {
-            System.out.println(nei.dest);
-        }
+        // for (Edge nei : graph[2]) {
+        //     System.out.println(nei.dest);
+        // }
+        bfs(graph);
     }
 }

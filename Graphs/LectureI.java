@@ -34,6 +34,18 @@ public class LectureI {
         }
     }
 
+    public static void dfa(ArrayList<Edge>[] graph, int curr, boolean[] vis){
+
+        System.out.print(curr + " ");
+        vis[curr] = true;
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if (!vis[e.dest]) {
+                dfa(graph, e.dest, vis);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         int v = 5;
         ArrayList<Edge>[] graph = new ArrayList[v];
@@ -66,6 +78,9 @@ public class LectureI {
         // for (Edge nei : graph[2]) {
         //     System.out.println(nei.dest);
         // }
-        bfs(graph);
+        // bfs(graph);
+        boolean[] vis = new boolean[graph.length];
+        dfa(graph, 0, vis);
+
     }
 }

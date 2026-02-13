@@ -63,6 +63,34 @@ public class LectureII {
         }
     }
 
+    public static boolean detectCycle(ArrayList<Edge>[] graph){
+        boolean[] vis = new boolean[graph.length];
+        for (int i = 0; i < graph.length; i++) {
+            if (!vis[i]) {
+                if (detectCycleUtil(graph, vis, i, -1)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public static  boolean detectCycleUtil(ArrayList<Edge>[] graph, boolean[] vis, int curr, int par){
+        
+        vis[curr] = true;
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+
+            if (!vis[e.dest] && detectCycleUtil(graph, vis, e.dest, curr)) {
+                return true;
+            }
+            if (vis[e.dest] && e.dest != par) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static void main(String[] args) {
         int v = 5;
         ArrayList<Edge>[] graph = new ArrayList[v];
@@ -96,6 +124,8 @@ public class LectureII {
         //     System.out.println(nei.dest);
         // }
         // bfs(graph);
-        dfs(graph);
+        // dfs(graph);
+        System.out.println(detectCycle(graph));
+        
     }
 }
